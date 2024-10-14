@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta de Nombres</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ruleta de Nombres</h1>
+    <textarea id="names" rows="10" cols="30" placeholder="Introduce los nombres, uno por línea"></textarea><br>
+    <button onclick="spin()">Girar Ruleta</button>
+    <div id="result"></div>
+
+    <script>
+        function spin() {
+            const names = document.getElementById('names').value.split('\n').map(name => name.trim()).filter(name => name && name.toLowerCase() !== 'nuria');
+            if (names.length < 3) {
+                document.getElementById('result').innerText = 'Debe haber al menos 3 nombres válidos (excluyendo "Nuria").';
+                return;
+            }
+            const selectedNames = [];
+            while (selectedNames.length < 3) {
+                const randomIndex = Math.floor(Math.random() * names.length);
+                const selectedName = names[randomIndex];
+                if (!selectedNames.includes(selectedName)) {
+                    selectedNames.push(selectedName);
+                }
+            }
+            document.getElementById('result').innerText = `Seleccionados: ${selectedNames.join(', ')}`;
+        }
+    </script>
+</body>
+</html>
